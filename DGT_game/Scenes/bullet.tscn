@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://db6gc4np1fgwj"]
+
+[ext_resource type="Texture2D" uid="uid://1ei0dkp1neu8" path="res://Assets/Bullet-.png" id="1_2rfuh"]
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_xtq13"]
+[ext_resource type="PackedScene" uid="uid://y10an7k2h0fe" path="res://Scenes/damage_zone.tscn" id="2_1g86s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p2ipt"]
+size = Vector2(12, 6)
+
+[node name="Bullet" type="CharacterBody2D"]
+scale = Vector2(0.9, 0.9)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_xtq13")
+
+[node name="damage_zone" parent="." instance=ExtResource("2_1g86s")]
+collision_mask = 4
+
+[node name="bullet_damage_zone" type="CollisionShape2D" parent="damage_zone"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_p2ipt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -4)
+texture = ExtResource("1_2rfuh")
+
+[node name="bullet_collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_p2ipt")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
