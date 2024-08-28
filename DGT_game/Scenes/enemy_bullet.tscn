@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6tkt5gkff8st"]
+
+[ext_resource type="Script" path="res://Scripts/enemy_bullet.gd" id="1_d22my"]
+[ext_resource type="Texture2D" uid="uid://cjk3o4c3g5arf" path="res://Assets/projectile.png" id="1_j2ibh"]
+[ext_resource type="PackedScene" uid="uid://y10an7k2h0fe" path="res://Scenes/damage_zone.tscn" id="2_st4u2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q73yv"]
+size = Vector2(32, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uu1c"]
+size = Vector2(26, 10)
+
+[node name="enemy_bullet" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_d22my")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 2)
+rotation = 3.14159
+texture = ExtResource("1_j2ibh")
+
+[node name="damage_zone" parent="." instance=ExtResource("2_st4u2")]
+
+[node name="enemy_bullet_damage_zone" type="CollisionShape2D" parent="damage_zone"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_q73yv")
+
+[node name="enemy_bullet_hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_3uu1c")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+scale = Vector2(2.3, 1.4)
+
+[connection signal="body_entered" from="damage_zone" to="." method="_on_damage_zone_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]

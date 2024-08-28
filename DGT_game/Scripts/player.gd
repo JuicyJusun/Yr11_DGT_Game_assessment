@@ -1,15 +1,16 @@
 extends CharacterBody2D
 
 const BULLET = preload("res://Scenes/bullet.tscn")
-const SPEED = 400.0
-const JUMP_VELOCITY = -400.0
+const SPEED = 300.0
+const JUMP_VELOCITY = -350.0
 
+# Delay for being able to shoot bullets
 var can_fire = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var timer = $Timer
+@onready var timer = $BulletDelay
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var node_2d = $BulletSpawn
 
@@ -26,7 +27,6 @@ func shoot():
 		can_fire = false
 	
 func _physics_process(delta):
-	
 	
 	$BulletSpawn.look_at(get_global_mouse_position())
 	
@@ -58,7 +58,7 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
-	
+		
 	if Input.is_action_just_pressed("Escape"):
 		get_tree().change_scene_to_file("res://Scenes/menu.tscn")
 	
