@@ -21,7 +21,8 @@ func _on_cycle_cooldown_timeout():
 		random = rng.randi_range(0, 2)
 	cycle = random
 	$"Cycle Cooldown".start()
-
+	
+	
 func _ready():
 	rng.randomize()
 	positions = [pos_1, pos_2, pos_3]
@@ -29,30 +30,17 @@ func _ready():
 func _physics_process(delta):
 	global_position = global_position.lerp(positions[cycle].global_position, delta * flying_speed)
 	update_health()
-	if Input.is_action_just_pressed("ui_accept"):	
-		shoot_fireball()
 
 func take_damage(amount):
 	enemy_health -= amount
 
 func shoot_fireball():
-	pass
-#		var enemy_bullet = ENEMY_BULLET.instantiate()
-#		get_parent().add_child(enemy_bullet)
-#		enemy_bullet.global_position = $Enemy_Bullet_Spawn.global_position
-#		enemy_bullet.velo = (player.global_position - global_position)
+	var enemy_bullet = ENEMY_BULLET.instantiate()
+	get_parent().add_child(enemy_bullet)
+	enemy_bullet.global_position = $Enemy_Bullet_Spawn.global_position
+	enemy_bullet.velo = (player.global_position - global_position)
 
 # Updates health everytime enemy_health_bar is changed
 func update_health():
 	var enemy_health_bar = $"../Enemy_health"
 	enemy_health_bar.value = enemy_health
-	
-	
-func fly():
-	pass
-
-
-	
-
-
-

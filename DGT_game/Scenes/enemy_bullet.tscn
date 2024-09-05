@@ -11,6 +11,7 @@ size = Vector2(32, 14)
 size = Vector2(26, 10)
 
 [node name="enemy_bullet" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_d22my")

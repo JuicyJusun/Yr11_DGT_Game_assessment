@@ -23,7 +23,6 @@ func shoot():
 		get_parent().add_child(bullet)
 		bullet.global_position = $BulletSpawn.global_position
 		bullet.velo = get_global_mouse_position() - bullet.position
-		bullet.rotation_degrees = rotation_degrees
 		can_fire = false
 	
 func _physics_process(delta):
@@ -58,7 +57,7 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
-		
+
 	if Input.is_action_just_pressed("Escape"):
 		get_tree().change_scene_to_file("res://Scenes/menu.tscn")
 	
