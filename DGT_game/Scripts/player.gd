@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const BULLET = preload("res://Scenes/bullet.tscn")
+const PLAYER_BULLET = preload("res://Scenes/bullet.tscn")
 const SPEED = 300.0
 const JUMP_VELOCITY = -350.0
 
@@ -19,10 +19,10 @@ func _on_timer_timeout():
 
 func shoot():
 	if can_fire:
-		var bullet = BULLET.instantiate()
-		get_parent().add_child(bullet)
-		bullet.global_position = $BulletSpawn.global_position
-		bullet.velo = get_global_mouse_position() - bullet.position
+		var player_bullet = PLAYER_BULLET.instantiate()
+		get_parent().add_child(player_bullet)
+		player_bullet.global_position = $BulletSpawn.global_position
+		player_bullet.velo = (get_global_mouse_position() - player_bullet.position).normalized()
 		can_fire = false
 	
 func _physics_process(delta):

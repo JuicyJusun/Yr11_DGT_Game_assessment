@@ -215,4 +215,9 @@ wait_time = 4.0
 one_shot = true
 autostart = true
 
+[node name="Bullet Delay" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
 [connection signal="timeout" from="Cycle Cooldown" to="." method="_on_cycle_cooldown_timeout"]
+[connection signal="timeout" from="Bullet Delay" to="." method="_on_bullet_delay_timeout"]

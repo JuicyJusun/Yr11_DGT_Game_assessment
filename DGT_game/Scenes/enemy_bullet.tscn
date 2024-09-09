@@ -11,6 +11,8 @@ size = Vector2(32, 14)
 size = Vector2(26, 10)
 
 [node name="enemy_bullet" type="CharacterBody2D"]
+position = Vector2(-1.90735e-06, -13)
+rotation = 3.14159
 scale = Vector2(1.5, 1.5)
 collision_layer = 2
 collision_mask = 4
