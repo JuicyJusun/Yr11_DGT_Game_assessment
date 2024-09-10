@@ -6,6 +6,7 @@ const flying_speed = 1.5
 var enemy_health = 250
 
 @onready var enemy_bullet_spawn = $Enemy_Bullet_Spawn
+@onready var enemy_health_bar = $"../Enemy_health"
 @export var pos_1: Node2D
 @export var pos_2: Node2D
 @export var pos_3: Node2D
@@ -37,8 +38,10 @@ func _ready():
 func _physics_process(delta):
 	# Boss movement code, Change flying speed to make boss move between nodes faster.
 	global_position = global_position.lerp(positions[cycle].global_position, delta * flying_speed)
-#	if cycle == 0:
-#		shoot_fireball()
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		shoot_fireball()
+		$"Bullet Delay".start()
 	# Updates health every frame
 	update_health()
 		
@@ -59,5 +62,4 @@ func shoot_fireball():
 
 # Updates health everytime enemy_health_bar is changed
 func update_health():
-	var enemy_health_bar = $"../Enemy_health"
 	enemy_health_bar.value = enemy_health
