@@ -111,7 +111,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -137,7 +137,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"death",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -154,7 +154,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 7.0
+"speed": 8.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x3j2i"]
@@ -174,8 +174,6 @@ position = Vector2(10, -5)
 sprite_frames = SubResource("SpriteFrames_w7btv")
 animation = &"attack"
 autoplay = "idle"
-frame = 5
-frame_progress = 0.201015
 
 [node name="collision_box" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
@@ -189,7 +187,9 @@ position = Vector2(47, 20)
 shape = SubResource("CircleShape2D_qek60")
 
 [node name="DeathDelay" type="Timer" parent="."]
-wait_time = 0.7
+process_callback = 0
+wait_time = 0.4
+one_shot = true
 
 [node name="MinionHealth" type="ProgressBar" parent="."]
 modulate = Color(1, 0, 0, 1)
