@@ -60,3 +60,11 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Escape"):
 		get_tree().change_scene_to_file("res://Scenes/menu.tscn")
 	
+	if Input.is_action_just_pressed("stop_time"):
+		Engine.time_scale = 0
+
+func _ready():
+	Engine.time_scale = 1 
+
+		
+	

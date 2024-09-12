@@ -7,7 +7,7 @@ const flying_speed = 1.5
 var enemy_health = 250
 
 @onready var enemy_bullet_spawn = $Enemy_Bullet_Spawn
-@onready var enemy_health_bar = $"../Enemy_health"
+@onready var enemy_health_bar = $"../Enemy_UI/Enemy_health"
 
 # Player variable
 @export var player: Node2D
@@ -35,13 +35,26 @@ var random_minion
 var can_fire = true
 var can_spawn = true
 
+# Physics process function
+func _physics_process(delta):
+	# Boss movement code, Change flying speed to make boss move between nodes faster.
+	global_position = global_position.lerp(positions[flight_cycle].global_position, delta * flying_speed)
+	
+#	if Input.is_action_just_pressed("ui_accept"):
+#		shoot_fireball()
+#		$"Bullet Delay".start()
+	# Updates health every frame
+	update_health()
+	
+	if Input.is_action_just_pressed("spawn_minion_test"):
+		spawn_minion()
+	
 func _on_cycle_cooldown_timeout():
 	random = flight_cycle
 	while random == flight_cycle:
 		random = flight_rng.randi_range(0, 2)
 	flight_cycle = random
 	$"Cycle Cooldown".start()
-
 
 func _on_bullet_delay_timeout():
 	can_fire = true
@@ -52,19 +65,6 @@ func _ready():
 	attack_rng.randi_range(0,1)
 	positions = [pos_1, pos_2, pos_3]
 
-# Physics process function
-func _physics_process(delta):
-	# Boss movement code, Change flying speed to make boss move between nodes faster.
-	global_position = global_position.lerp(positions[flight_cycle].global_position, delta * flying_speed)
-	
-	if Input.is_action_just_pressed("ui_accept"):
-		shoot_fireball()
-		$"Bullet Delay".start()
-	# Updates health every frame
-	update_health()
-	if Input.is_action_just_pressed("spawn_minion_test"):
-		spawn_minion()
-	
 func spawn_minion():
 	minion_spawn_rng.randomize()
 	minion_spawns = [minion_spawn_1, minion_spawn_2, minion_spawn_3, minion_spawn_4]

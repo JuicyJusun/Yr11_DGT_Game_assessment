@@ -1,26 +1,28 @@
 extends CharacterBody2D
 
 const flying_speed = 50
-const minion_instantiate = preload("res://Scenes/minion.tscn")
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var minion_health_bar = $MinionHealth
+@onready var minion_raycast = $MinionRaycast
 @export var player: Node2D
 
 var direction : Vector2
 var is_alive = true
 var minion_health = 30
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	
-	direction = (player.global_position - global_position).normalized()
-	if direction.x < 0:
-		animated_sprite.flip_h = false
-	else:
-		animated_sprite.flip_h = true
+	minion_raycast.target_position = player.global_position
 	
-	var velocity = (direction * flying_speed * _delta)
-	move_and_collide(velocity)
+	direction = ((player.global_position - global_position)*delta).normalized()
+	if direction.x <= 0:
+		scale.x = 0.6
+	elif direction.x > 0:
+		scale.x = -0.6
+	
+	var velo = (direction * flying_speed * delta)
+	self.global_position += velo
 	
 	if minion_health <= 0 and is_alive:
 		is_alive = false

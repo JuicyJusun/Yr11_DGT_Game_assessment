@@ -1097,7 +1097,7 @@ position = Vector2(0, -1)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy_Bullet_Direction" type="Node2D" parent="Player"]
-position = Vector2(-1.33333, -26)
+position = Vector2(-1.33333, -24)
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(0, -112)
@@ -1123,21 +1123,35 @@ minion_spawn_2 = NodePath("../Minion_Spawns/Minion_Spawn_2")
 minion_spawn_3 = NodePath("../Minion_Spawns/Minion_Spawn_3")
 minion_spawn_4 = NodePath("../Minion_Spawns/Minion_Spawn_4")
 
+[node name="Enemy_UI" type="Node2D" parent="."]
+position = Vector2(0, 282)
+
+[node name="Enemy_health" type="ProgressBar" parent="Enemy_UI"]
+modulate = Color(1, 0, 0, 1)
+offset_left = -132.0
+offset_top = -535.0
+offset_right = 132.0
+offset_bottom = -528.0
+max_value = 250.0
+show_percentage = false
+
+[node name="Boss_Title" type="Label" parent="Enemy_UI"]
+offset_left = -86.0
+offset_top = -555.0
+offset_right = 86.0
+offset_bottom = -532.0
+theme_override_fonts/font = ExtResource("6_g2wpv")
+theme_override_font_sizes/font_size = 8
+text = "Fire Demon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Killzone" parent="." instance=ExtResource("4_i3rra")]
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 position = Vector2(0, 282)
 shape = SubResource("WorldBoundaryShape2D_p6rfx")
-
-[node name="Enemy_health" type="ProgressBar" parent="."]
-modulate = Color(1, 0, 0, 1)
-offset_left = -132.0
-offset_top = -253.0
-offset_right = 132.0
-offset_bottom = -246.0
-max_value = 250.0
-show_percentage = false
 
 [node name="Enemy_Positions" type="Node2D" parent="."]
 
@@ -1164,15 +1178,4 @@ position = Vector2(-350, -25)
 [node name="Minion_Spawn_4" type="Node2D" parent="Minion_Spawns"]
 position = Vector2(350, -25)
 
-[node name="Boss_Title" type="Label" parent="."]
-offset_left = -86.0
-offset_top = -273.0
-offset_right = 86.0
-offset_bottom = -250.0
-theme_override_fonts/font = ExtResource("6_g2wpv")
-theme_override_font_sizes/font_size = 8
-text = "The Throngler"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[connection signal="changed" from="Enemy_health" to="Enemy" method="_on_enemy_health_changed"]
+[connection signal="changed" from="Enemy_UI/Enemy_health" to="Enemy" method="_on_enemy_health_changed"]

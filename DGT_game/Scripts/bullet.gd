@@ -17,4 +17,4 @@ func _on_damage_zone_body_entered(_body):
 
 func update_rotation():
 	if velo.length_squared() > 0:
-		sprite_2d.rotation = velo.angle()
+		rotation = velo.angle()
