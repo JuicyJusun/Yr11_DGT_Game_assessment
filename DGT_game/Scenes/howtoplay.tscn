@@ -1,0 +1,103 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyxsmg38oc4at"]
+
+[ext_resource type="Script" path="res://Scripts/howtoplay.gd" id="1_euyta"]
+[ext_resource type="FontFile" uid="uid://qo0nb0psq0ii" path="res://Assets/PixelOperator8 - Copy.ttf" id="2_ynloq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04xsn"]
+bg_color = Color(0.169245, 0.169245, 0.169245, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_euyta")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Seperator" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ynloq")
+theme_override_font_sizes/font_size = 128
+text = "GAME"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Seperator6" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seperator5" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seperator2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seperator3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seperator4" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(350, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_04xsn")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 14.0
+offset_right = 351.0
+offset_bottom = 182.0
+theme_override_fonts/font = ExtResource("2_ynloq")
+theme_override_font_sizes/font_size = 16
+text = "Left click to shoot
+The bullet goes to 
+the position of the mouse
+D to move right 
+A to move left
+Spacebar to jump
+
+Shoot the boss to win
+Avoid fireballs and enemies
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ynloq")
+theme_override_font_sizes/font_size = 32
+text = "BACK
+"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
