@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ewjbwt8f6fan"]
+[gd_scene load_steps=3 format=3 uid="uid://ewjbwt8f6fan"]
 
 [ext_resource type="Script" path="res://Scripts/menu.gd" id="1_x0ghb"]
+[ext_resource type="FontFile" uid="uid://qo0nb0psq0ii" path="res://Assets/PixelOperator8 - Copy.ttf" id="2_cdpuc"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -30,8 +31,10 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_cdpuc")
 theme_override_font_sizes/font_size = 128
-text = "GAME"
+text = "Maori Man
+"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
@@ -42,6 +45,9 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
+
+[node name="Seperator5" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="Seperator2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -55,14 +61,24 @@ layout_mode = 2
 [node name="Play" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_cdpuc")
 theme_override_font_sizes/font_size = 32
 text = "PLAY"
 
+[node name="HowToPlay" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_cdpuc")
+theme_override_font_sizes/font_size = 32
+text = "HOW TO PLAY"
+
 [node name="Quit" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_cdpuc")
 theme_override_font_sizes/font_size = 32
 text = "QUIT
 "
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

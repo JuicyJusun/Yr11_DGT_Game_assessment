@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://bw0w8k3btfj07"]
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 364.0
+offset_top = 84.0
+offset_right = 788.0
+offset_bottom = 564.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Seperator" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seperator5" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Seperator2" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+text = "Resume
+"
+
+[node name="Seperator3" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Restart
+"
+
+[node name="Seperator4" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
