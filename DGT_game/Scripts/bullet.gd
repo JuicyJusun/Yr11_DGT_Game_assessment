@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 var velo = Vector2.ZERO
 var speed = 500 
-@onready var sprite_2d = $Sprite2D
 
 func _physics_process(delta):
 	var _collision_info = move_and_collide(velo.normalized() * delta * speed)

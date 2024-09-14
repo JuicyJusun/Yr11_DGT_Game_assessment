@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var timer = $Timer
+@onready var timer = $timer
 
 # Starts a timer when body enters the killzone
 func _on_body_entered(_body):

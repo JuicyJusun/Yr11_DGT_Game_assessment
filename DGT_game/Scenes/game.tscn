@@ -1096,15 +1096,19 @@ z_index = 5
 position = Vector2(0, -1)
 scale = Vector2(1.5, 1.5)
 
-[node name="Enemy_Bullet_Direction" type="Node2D" parent="Player"]
+[node name="minion_direction" type="Node2D" parent="Player"]
+position = Vector2(-1.33333, -12.6667)
+scale = Vector2(0.666667, 0.666667)
+
+[node name="enemy_bullet_direction" type="Node2D" parent="Player"]
 position = Vector2(-1.33333, -24)
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="camera" type="Camera2D" parent="."]
 position = Vector2(0, -112)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
-[node name="World" type="TileMap" parent="."]
+[node name="tilemap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_mx8rv")
 format = 2
 layer_0/name = "Mid"
@@ -1112,21 +1116,22 @@ layer_0/tile_data = PackedInt32Array(65534, 393216, 2, 65535, 393216, 2, 0, 3932
 layer_1/name = "Background"
 layer_1/tile_data = PackedInt32Array()
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("player", "pos_1", "pos_2", "pos_3", "minion_spawn_1", "minion_spawn_2", "minion_spawn_3", "minion_spawn_4") instance=ExtResource("3_t5noe")]
+[node name="enemy" parent="." node_paths=PackedStringArray("fireball_player", "minion_player", "pos_1", "pos_2", "pos_3", "minion_spawn_1", "minion_spawn_2", "minion_spawn_3", "minion_spawn_4") instance=ExtResource("3_t5noe")]
 position = Vector2(-4, -164)
-player = NodePath("../Player/Enemy_Bullet_Direction")
-pos_1 = NodePath("../Enemy_Positions/Enemy_Position_1")
-pos_2 = NodePath("../Enemy_Positions/Enemy_Position_2")
-pos_3 = NodePath("../Enemy_Positions/Enemy_Position_3")
-minion_spawn_1 = NodePath("../Minion_Spawns/Minion_Spawn_1")
-minion_spawn_2 = NodePath("../Minion_Spawns/Minion_Spawn_2")
-minion_spawn_3 = NodePath("../Minion_Spawns/Minion_Spawn_3")
-minion_spawn_4 = NodePath("../Minion_Spawns/Minion_Spawn_4")
+fireball_player = NodePath("../Player/enemy_bullet_direction")
+minion_player = NodePath("../Player/minion_direction")
+pos_1 = NodePath("../enemy_positions/enemy_position_1")
+pos_2 = NodePath("../enemy_positions/enemy_position_2")
+pos_3 = NodePath("../enemy_positions/enemy_position_3")
+minion_spawn_1 = NodePath("../minion_spawns/minion_spawn_1")
+minion_spawn_2 = NodePath("../minion_spawns/minion_spawn_2")
+minion_spawn_3 = NodePath("../minion_spawns/minion_spawn_3")
+minion_spawn_4 = NodePath("../minion_spawns/minion_spawn_4")
 
-[node name="Enemy_UI" type="Node2D" parent="."]
+[node name="enemy_ui" type="Node2D" parent="."]
 position = Vector2(0, 282)
 
-[node name="Enemy_health" type="ProgressBar" parent="Enemy_UI"]
+[node name="enemy_healthbar" type="ProgressBar" parent="enemy_ui"]
 modulate = Color(1, 0, 0, 1)
 offset_left = -132.0
 offset_top = -535.0
@@ -1135,7 +1140,7 @@ offset_bottom = -528.0
 max_value = 250.0
 show_percentage = false
 
-[node name="Boss_Title" type="Label" parent="Enemy_UI"]
+[node name="boss_title" type="Label" parent="enemy_ui"]
 offset_left = -86.0
 offset_top = -555.0
 offset_right = 86.0
@@ -1146,36 +1151,89 @@ text = "Fire Demon"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Killzone" parent="." instance=ExtResource("4_i3rra")]
+[node name="killzone" parent="." instance=ExtResource("4_i3rra")]
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
 position = Vector2(0, 282)
 shape = SubResource("WorldBoundaryShape2D_p6rfx")
 
-[node name="Enemy_Positions" type="Node2D" parent="."]
+[node name="enemy_positions" type="Node2D" parent="."]
 
-[node name="Enemy_Position_1" type="Node2D" parent="Enemy_Positions"]
+[node name="enemy_position_1" type="Node2D" parent="enemy_positions"]
 position = Vector2(152, -165)
 
-[node name="Enemy_Position_2" type="Node2D" parent="Enemy_Positions"]
+[node name="enemy_position_2" type="Node2D" parent="enemy_positions"]
 position = Vector2(-160, -166)
 
-[node name="Enemy_Position_3" type="Node2D" parent="Enemy_Positions"]
+[node name="enemy_position_3" type="Node2D" parent="enemy_positions"]
 position = Vector2(0, -166)
 
-[node name="Minion_Spawns" type="Node2D" parent="."]
+[node name="minion_spawns" type="Node2D" parent="."]
 
-[node name="Minion_Spawn_1" type="Node2D" parent="Minion_Spawns"]
+[node name="minion_spawn_1" type="Node2D" parent="minion_spawns"]
 position = Vector2(-350, -150)
 
-[node name="Minion_Spawn_2" type="Node2D" parent="Minion_Spawns"]
+[node name="minion_spawn_2" type="Node2D" parent="minion_spawns"]
 position = Vector2(350, -150)
 
-[node name="Minion_Spawn_3" type="Node2D" parent="Minion_Spawns"]
+[node name="minion_spawn_3" type="Node2D" parent="minion_spawns"]
 position = Vector2(-350, -25)
 
-[node name="Minion_Spawn_4" type="Node2D" parent="Minion_Spawns"]
+[node name="minion_spawn_4" type="Node2D" parent="minion_spawns"]
 position = Vector2(350, -25)
 
-[connection signal="changed" from="Enemy_UI/Enemy_health" to="Enemy" method="_on_enemy_health_changed"]
+[node name="player_ui" type="Node2D" parent="."]
+position = Vector2(350, -25)
+
+[node name="player_title" type="Label" parent="player_ui"]
+offset_left = -436.0
+offset_top = 38.0
+offset_right = -264.0
+offset_bottom = 61.0
+theme_override_fonts/font = ExtResource("6_g2wpv")
+theme_override_font_sizes/font_size = 8
+text = "Maori Man
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="player_healthbar" type="ProgressBar" parent="player_ui"]
+modulate = Color(1, 0, 0, 1)
+offset_left = -423.0
+offset_top = 57.0
+offset_right = -276.0
+offset_bottom = 65.0
+max_value = 50.0
+show_percentage = false
+
+[node name="boss_defeated_screen" type="Label" parent="."]
+visible = false
+z_index = 5
+offset_left = -235.0
+offset_top = -170.0
+offset_right = 234.0
+offset_bottom = -55.0
+theme_override_fonts/font = ExtResource("6_g2wpv")
+theme_override_font_sizes/font_size = 48
+text = "FIRE DEMON 
+SLAINED
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="player_died_screen" type="Label" parent="."]
+visible = false
+z_index = 5
+offset_left = -178.0
+offset_top = -147.0
+offset_right = 179.0
+offset_bottom = -91.0
+theme_override_fonts/font = ExtResource("6_g2wpv")
+theme_override_font_sizes/font_size = 56
+text = "YOU DIED
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="changed" from="enemy_ui/enemy_healthbar" to="enemy" method="_on_enemy_health_changed"]

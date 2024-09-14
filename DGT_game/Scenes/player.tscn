@@ -21,25 +21,25 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwo8i"]
 size = Vector2(9, 19)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_0674m")
 
-[node name="BulletDelay" type="Timer" parent="."]
+[node name="bullet_delay" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="animated_sprite_2d" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -11)
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_76efi")
 
-[node name="BulletSpawn" type="Node2D" parent="."]
+[node name="bullet_spawn" type="Node2D" parent="."]
 position = Vector2(-1, -9)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="collision_box" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, -9.5)
 shape = SubResource("RectangleShape2D_jwo8i")
 
-[connection signal="timeout" from="BulletDelay" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="bullet_delay" to="." method="_on_timer_timeout"]

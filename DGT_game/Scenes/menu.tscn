@@ -33,7 +33,8 @@ layout_mode = 2
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_cdpuc")
 theme_override_font_sizes/font_size = 128
-text = "GAME"
+text = "Maori Man
+"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]

@@ -14,16 +14,18 @@ size = Vector2(26, 10)
 position = Vector2(-1.90735e-06, -13)
 rotation = 3.14159
 scale = Vector2(1.5, 1.5)
-collision_layer = 2
-collision_mask = 4
+collision_layer = 16
+collision_mask = 2
 script = ExtResource("1_d22my")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="sprite_2d" type="Sprite2D" parent="."]
 position = Vector2(1, 2)
 rotation = 3.14159
 texture = ExtResource("1_j2ibh")
 
 [node name="damage_zone" parent="." instance=ExtResource("2_st4u2")]
+collision_layer = 2
+collision_mask = 2
 
 [node name="enemy_bullet_damage_zone" type="CollisionShape2D" parent="damage_zone"]
 position = Vector2(1, 0)

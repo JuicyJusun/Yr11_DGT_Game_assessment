@@ -10,13 +10,13 @@ size = Vector2(13.3333, 6.97531)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f2v2t"]
 size = Vector2(8.88889, 4.44444)
 
-[node name="Bullet" type="CharacterBody2D"]
+[node name="bullet" type="CharacterBody2D"]
 scale = Vector2(0.9, 0.9)
-collision_layer = 2
+collision_layer = 8
 collision_mask = 4
 script = ExtResource("1_xtq13")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="sprite_2d" type="Sprite2D" parent="."]
 position = Vector2(-1.11111, -1.11111)
 texture = ExtResource("1_2rfuh")
 

@@ -186,38 +186,41 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_5tsek"]
 radius = 26.0
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="enemy" type="CharacterBody2D"]
 z_index = 1
 collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_uxueu")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(17, -15)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_2qqmq")
-animation = &"idle"
+animation = &"death"
 autoplay = "idle"
 
 [node name="collision_box" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_5tsek")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="enemy_bullet_spawn" type="Node2D" parent="."]
 
-[node name="hurt_box" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_5tsek")
-
-[node name="Enemy_Bullet_Spawn" type="Node2D" parent="."]
-
-[node name="Cycle Cooldown" type="Timer" parent="."]
-wait_time = 4.0
+[node name="cycle_cooldown" type="Timer" parent="."]
+wait_time = 6.0
 one_shot = true
 autostart = true
 
-[node name="Bullet Delay" type="Timer" parent="."]
-wait_time = 0.15
+[node name="bullet_delay" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
-[connection signal="timeout" from="Cycle Cooldown" to="." method="_on_cycle_cooldown_timeout"]
-[connection signal="timeout" from="Bullet Delay" to="." method="_on_bullet_delay_timeout"]
+[node name="death_delay" type="Timer" parent="."]
+wait_time = 0.6
+
+[node name="minion_spawn_delay" type="Timer" parent="."]
+wait_time = 4.0
+
+[connection signal="timeout" from="cycle_cooldown" to="." method="_on_cycle_cooldown_timeout"]
+[connection signal="timeout" from="bullet_delay" to="." method="_on_bullet_delay_timeout"]
+[connection signal="timeout" from="death_delay" to="." method="_on_death_delay_timeout"]
+[connection signal="timeout" from="minion_spawn_delay" to="." method="_on_minion_spawn_delay_timeout"]
