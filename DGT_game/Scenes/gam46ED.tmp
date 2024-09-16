@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjw32o8r45vr8"]
+[gd_scene load_steps=9 format=3 uid="uid://bjw32o8r45vr8"]
 
 [ext_resource type="PackedScene" uid="uid://b0d3d4qwnrilb" path="res://Scenes/player.tscn" id="1_3q77m"]
 [ext_resource type="Texture2D" uid="uid://cjp2sua0ti102" path="res://Assets/jungle tileset.png" id="2_td5gw"]
 [ext_resource type="PackedScene" uid="uid://cu2xmaaov7pjc" path="res://Scenes/enemy.tscn" id="3_t5noe"]
 [ext_resource type="PackedScene" uid="uid://7ohbjqdu6553" path="res://Scenes/killzone.tscn" id="4_i3rra"]
 [ext_resource type="FontFile" uid="uid://qo0nb0psq0ii" path="res://Assets/PixelOperator8 - Copy.ttf" id="6_g2wpv"]
-[ext_resource type="Script" path="res://Scripts/ready_countdown.gd" id="6_katju"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bybqe"]
 texture = ExtResource("2_td5gw")
@@ -1106,7 +1105,6 @@ position = Vector2(-1.33333, -24)
 
 [node name="camera" type="Camera2D" parent="."]
 position = Vector2(0, -112)
-zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
 [node name="tilemap" type="TileMap" parent="."]
@@ -1185,7 +1183,6 @@ position = Vector2(-350, -25)
 position = Vector2(350, -25)
 
 [node name="player_ui" type="Node2D" parent="."]
-z_index = 5
 position = Vector2(350, -25)
 
 [node name="player_title" type="Label" parent="player_ui"]
@@ -1208,55 +1205,5 @@ offset_right = -276.0
 offset_bottom = 65.0
 max_value = 50.0
 show_percentage = false
-
-[node name="death_screens" type="Node2D" parent="."]
-position = Vector2(-235, -170)
-
-[node name="player_died_screen" type="Label" parent="death_screens"]
-visible = false
-z_index = 5
-offset_left = 57.0
-offset_top = 23.0
-offset_right = 414.0
-offset_bottom = 79.0
-theme_override_fonts/font = ExtResource("6_g2wpv")
-theme_override_font_sizes/font_size = 56
-text = "YOU DIED
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="boss_defeated_screen" type="Label" parent="death_screens"]
-visible = false
-z_index = 5
-offset_right = 469.0
-offset_bottom = 115.0
-theme_override_fonts/font = ExtResource("6_g2wpv")
-theme_override_font_sizes/font_size = 48
-text = "FIRE DEMON 
-SLAINED
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ready_countdown" type="Node" parent="."]
-script = ExtResource("6_katju")
-
-[node name="ready_countdown" type="Timer" parent="ready_countdown"]
-wait_time = 10.0
-
-[node name="countdown_label" type="Label" parent="ready_countdown"]
-visible = false
-z_index = 5
-offset_left = -179.0
-offset_top = -149.0
-offset_right = 178.0
-offset_bottom = -93.0
-theme_override_fonts/font = ExtResource("6_g2wpv")
-theme_override_font_sizes/font_size = 56
-text = "t
-"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [connection signal="changed" from="enemy_ui/enemy_healthbar" to="enemy" method="_on_enemy_health_changed"]

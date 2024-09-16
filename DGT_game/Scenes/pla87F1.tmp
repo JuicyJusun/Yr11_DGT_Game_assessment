@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0d3d4qwnrilb"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_0674m"]
+[ext_resource type="Texture2D" uid="uid://bummivp73md21" path="res://Assets/Toga_game.png" id="2_hesjy"]
+[ext_resource type="PackedScene" uid="uid://y10an7k2h0fe" path="res://Scenes/damage_zone.tscn" id="3_hbafw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aegsw"]
+atlas = ExtResource("2_hesjy")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_76efi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aegsw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jwo8i"]
+size = Vector2(9, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4o6co"]
+size = Vector2(12, 20)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_0674m")
+
+[node name="BulletDelay" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -11)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_76efi")
+
+[node name="BulletSpawn" type="Node2D" parent="."]
+position = Vector2(-1, -9)
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, -9.5)
+shape = SubResource("RectangleShape2D_jwo8i")
+
+[node name="DamageZone" parent="." instance=ExtResource("3_hbafw")]
+position = Vector2(-1, -9)
+damage = 10.0
+
+[node name="HurtBox" type="CollisionShape2D" parent="DamageZone"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_4o6co")
+
+[connection signal="timeout" from="BulletDelay" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="DamageZone" to="." method="_on_damage_zone_body_entered"]
