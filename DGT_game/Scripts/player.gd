@@ -1,36 +1,23 @@
 extends CharacterBody2D
 
+# Constant variables
 const player_bullet_preload = preload("res://Scenes/bullet.tscn")
 const speed = 300.0
 const jump_velocity = -350.0
 
-# Delay for being able to shoot bullets
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var can_fire = true
 var health = 50
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-@onready var player_died_screen = $"../player_died_screen"
+# Onready variables.
+@onready var player_died_screen = $"../death_screens/player_died_screen"
 @onready var player_healthbar = $"../player_ui/player_healthbar"
 @onready var timer = $bullet_delay
 @onready var animated_sprite_2d = $animated_sprite_2d
 @onready var bullet_spawn = $bullet_spawn
 
-func _on_timer_timeout():
-	can_fire = true
-
-func shoot():
-	if can_fire:
-		var player_bullet = player_bullet_preload.instantiate()
-		get_parent().add_child(player_bullet)
-		player_bullet.global_position = bullet_spawn.global_position
-		player_bullet.velo = (get_global_mouse_position() - player_bullet.position).normalized()
-		can_fire = false
-		
-func _ready():
-	Engine.time_scale = 1 
-	
+# Physics process function
 func _physics_process(delta):
 	
 	if health <= 0:
@@ -71,16 +58,31 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("Escape"):
 		get_tree().change_scene_to_file("res://Scenes/menu.tscn")
+		
+# Ready function
+func _ready():
+	Engine.time_scale = 1 # To set the game's time to normal when the scene is loaded.
 	
-	if Input.is_action_just_pressed("stop_time"):
-		Engine.time_scale = 0
+# Delay for being able to shoot bullets
+func _on_timer_timeout():
+	can_fire = true
 
 
 
-func take_damage(amount):
-	health -= amount
-	print(health)
 
+# Function for shooting a bullet. Instantiates bullet and moves towards the mouse position.
+func shoot():
+	if can_fire:
+		var player_bullet = player_bullet_preload.instantiate()
+		get_parent().add_child(player_bullet)
+		player_bullet.global_position = bullet_spawn.global_position
+		player_bullet.velo = (get_global_mouse_position() - player_bullet.position).normalized()
+		can_fire = false
+
+# Function to update health bar.
 func update_health():
 	player_healthbar.value = health
 
+# Function for damage.
+func take_damage(amount):
+	health -= amount
