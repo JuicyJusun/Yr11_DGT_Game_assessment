@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 # Constant variables
-const enemy_bullet_preload = preload("res://Scenes/enemy_bullet.tscn")
-const minion_preload = preload("res://Scenes/minion.tscn")
-const flying_speed = 1.5
+const ENEMY_BULLET_PRELOAD = preload("res://Scenes/enemy_bullet.tscn")
+const MINION_PRELOAD = preload("res://Scenes/minion.tscn")
+const FLYING_SPEED = 1.5
 
 # Variables
 var enemy_health = 250
@@ -12,7 +12,6 @@ var minion_spawns
 var minion_cycle = 0
 var flight_cycle = 0
 var flight_rng = RandomNumberGenerator.new()
-var attack_rng = RandomNumberGenerator.new()
 var minion_spawn_rng = RandomNumberGenerator.new()
 var random
 var random_minion
@@ -25,6 +24,7 @@ var is_alive
 @onready var enemy_health_bar = $"../enemy_ui/enemy_healthbar"
 @onready var animated_sprite = $animated_sprite
 @onready var boss_defeated_screen = $"../death_screens/boss_defeated_screen"
+@onready var retry_label = $"../death_screens/retry_label"
 # Timer variables
 @onready var minion_spawn_delay = $minion_spawn_delay
 @onready var death_delay = $death_delay
@@ -45,38 +45,45 @@ var is_alive
 @export var minion_spawn_3: Node2D
 @export var minion_spawn_4: Node2D
 
-# Physics process function
+# Function for physics process. The code inside the function runs at a fixed rate.
+# This allows for the boss to shoot fireballs, spawn minions and fly when it needs to.
 func _physics_process(delta):
 	# Boss movement code, Change flying speed to make boss move between nodes faster.
-	global_position = global_position.lerp(positions[flight_cycle].global_position, delta * flying_speed)
+	# The boss changes it global position to the current flight position and smoothly flies over.
+	global_position = global_position.lerp(positions[flight_cycle].global_position, delta * FLYING_SPEED)
 	
-	# Updates health every frame
+	# Checks whether the enemy's health bar is changed or not every frame. 
+	# If it is changed, it updates the value of the health bar.
 	update_health()
 	
-	# Checks whether the boss has lost health or not. If all health is lost then the boss dies.
+	# Checks whether the enemy's health is less than or equal to 0. 
+	# If the enemy loses all it's health and is still alive, 
+	# it dies and sets the "is_alive" variable to false.
 	if enemy_health <= 0 and is_alive:
 		die()
 		is_alive = false
 	if enemy_health > 0:
 		is_alive = true
 		
-	# Code for spawning minion. Only spawns minion if alive.
+	# Checks every frame whether it can spawn a minion or not.
+	# If it can spawn a minion and is still alive, the enemy spawns a minion and starts a delay.
 	if can_spawn and is_alive:
 		spawn_minion()
 		minion_spawn_delay.start() # Delay for minion spawns.
 		can_spawn = false
 	
-	# Code for shooting fireball. 
+	# Checks every frame whether it can shoot a fireball or not. 
+	# If it can shoot a fireball and is still alive, the enemy shoots a fireball at the player.
+	# and starts a delay.
 	if can_fire and is_alive:
 		shoot_fireball()
 		bullet_delay.start() # Delay for shooting fireball.
 		can_fire = false
-
-# Ready function. 
+	if Input.is_action_just_pressed("spawn_minion"):
+		spawn_minion()
+# Ready function. Runs immediately when the scene is loaded. 
 func _ready():
-	flight_rng.randomize()
-	attack_rng.randomize()
-	attack_rng.randi_range(0,1)
+	flight_rng.randomize() # Randomizes where it will fly to.
 	positions = [pos_1, pos_2, pos_3]
 	# Delays start at the start of the game to avoid the boss shooting immediately.
 	minion_spawn_delay.start()
@@ -100,19 +107,19 @@ func spawn_minion():
 		random_minion = minion_spawn_rng.randi_range(0,3)
 	minion_cycle = random_minion
 	# Instantiates minion.
-	var minion = minion_preload.instantiate()
+	var minion = MINION_PRELOAD.instantiate()
 	get_parent().add_child(minion)
 	minion.global_position = minion_spawns[minion_cycle].global_position
 	minion.player = minion_player
 
-# Function to shoot fireball
+# Function to shoot fireball.
 func shoot_fireball(): 
-		var enemy_bullet = enemy_bullet_preload.instantiate()
+		var enemy_bullet = ENEMY_BULLET_PRELOAD.instantiate()
 		get_parent().add_child(enemy_bullet)
 		enemy_bullet.global_position = enemy_bullet_spawn.global_position
 		enemy_bullet.velo = (fireball_player.global_position - global_position).normalized()
 		
-# Updates health everytime enemy_health_bar is changed
+# Updates health everytime enemy_health_bar is changed.
 func update_health():
 	enemy_health_bar.value = enemy_health
 	
@@ -125,6 +132,7 @@ func die():
 	animated_sprite.play("death")
 	death_delay.start()
 	boss_defeated_screen.visible = true
+	retry_label.visible = true
 
 # Function to stop the game when boss is defeated.
 func _on_death_delay_timeout():

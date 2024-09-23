@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjw32o8r45vr8"]
+[gd_scene load_steps=9 format=3 uid="uid://bjw32o8r45vr8"]
 
 [ext_resource type="PackedScene" uid="uid://b0d3d4qwnrilb" path="res://Scenes/player.tscn" id="1_3q77m"]
 [ext_resource type="Texture2D" uid="uid://cjp2sua0ti102" path="res://Assets/jungle tileset.png" id="2_td5gw"]
 [ext_resource type="PackedScene" uid="uid://cu2xmaaov7pjc" path="res://Scenes/enemy.tscn" id="3_t5noe"]
-[ext_resource type="PackedScene" uid="uid://7ohbjqdu6553" path="res://Scenes/killzone.tscn" id="4_i3rra"]
+[ext_resource type="PackedScene" uid="uid://y10an7k2h0fe" path="res://Scenes/damage_zone.tscn" id="6_55mwn"]
 [ext_resource type="FontFile" uid="uid://qo0nb0psq0ii" path="res://Assets/PixelOperator8 - Copy.ttf" id="6_g2wpv"]
-[ext_resource type="Script" path="res://Scripts/ready_countdown.gd" id="6_katju"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bybqe"]
 texture = ExtResource("2_td5gw")
@@ -1087,8 +1086,7 @@ texture = ExtResource("2_td5gw")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_bybqe")
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p6rfx"]
-distance = 130.0
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2bbam"]
 
 [node name="Game" type="Node2D"]
 
@@ -1151,13 +1149,6 @@ theme_override_font_sizes/font_size = 8
 text = "Fire Demon"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="killzone" parent="." instance=ExtResource("4_i3rra")]
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
-position = Vector2(0, 282)
-shape = SubResource("WorldBoundaryShape2D_p6rfx")
 
 [node name="enemy_positions" type="Node2D" parent="."]
 
@@ -1226,6 +1217,19 @@ text = "YOU DIED
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="retry_label" type="Label" parent="death_screens"]
+visible = false
+z_index = 5
+offset_left = 56.0
+offset_top = 77.0
+offset_right = 413.0
+offset_bottom = 133.0
+theme_override_fonts/font = ExtResource("6_g2wpv")
+theme_override_font_sizes/font_size = 24
+text = "Press R to retry"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="boss_defeated_screen" type="Label" parent="death_screens"]
 visible = false
 z_index = 5
@@ -1234,29 +1238,18 @@ offset_bottom = 115.0
 theme_override_fonts/font = ExtResource("6_g2wpv")
 theme_override_font_sizes/font_size = 48
 text = "FIRE DEMON 
-SLAINED
+DEFEATED
+
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ready_countdown" type="Node" parent="."]
-script = ExtResource("6_katju")
+[node name="world_border" parent="." instance=ExtResource("6_55mwn")]
+position = Vector2(-1, 153)
+collision_mask = 3
+damage = 1e+12
 
-[node name="ready_countdown" type="Timer" parent="ready_countdown"]
-wait_time = 10.0
-
-[node name="countdown_label" type="Label" parent="ready_countdown"]
-visible = false
-z_index = 5
-offset_left = -179.0
-offset_top = -149.0
-offset_right = 178.0
-offset_bottom = -93.0
-theme_override_fonts/font = ExtResource("6_g2wpv")
-theme_override_font_sizes/font_size = 56
-text = "t
-"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="world_border_collision" type="CollisionShape2D" parent="world_border"]
+shape = SubResource("WorldBoundaryShape2D_2bbam")
 
 [connection signal="changed" from="enemy_ui/enemy_healthbar" to="enemy" method="_on_enemy_health_changed"]

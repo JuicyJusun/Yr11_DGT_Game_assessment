@@ -1,0 +1,155 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyxsmg38oc4at"]
+
+[ext_resource type="Script" path="res://Scripts/howtoplay.gd" id="1_tx7l7"]
+[ext_resource type="FontFile" uid="uid://qo0nb0psq0ii" path="res://Assets/PixelOperator8 - Copy.ttf" id="2_u12ke"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04xsn"]
+bg_color = Color(0.169245, 0.169245, 0.169245, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="how_to_play" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tx7l7")
+
+[node name="margin_container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vbox_container" type="VBoxContainer" parent="margin_container"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="seperator" type="Control" parent="margin_container/vbox_container"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin_container/vbox_container"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_u12ke")
+theme_override_font_sizes/font_size = 128
+text = "Maori Man"
+horizontal_alignment = 1
+
+[node name="hbox_container" type="HBoxContainer" parent="margin_container"]
+layout_mode = 2
+alignment = 1
+
+[node name="vbox_container" type="VBoxContainer" parent="margin_container/hbox_container"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="seperator_14" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_15" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_13" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_12" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_11" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_10" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_9" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_8" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator2" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_5" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_4" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_3" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator_2" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="seperator" type="Control" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+
+[node name="panel" type="Panel" parent="margin_container/hbox_container/vbox_container"]
+custom_minimum_size = Vector2(500, 270)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_04xsn")
+
+[node name="description" type="Label" parent="margin_container/hbox_container/vbox_container/panel"]
+layout_mode = 0
+offset_left = -17.0
+offset_top = 10.0
+offset_right = 521.0
+offset_bottom = 293.0
+theme_override_fonts/font = ExtResource("2_u12ke")
+theme_override_font_sizes/font_size = 8
+text = "A long time ago... 
+A Maori Man awakened
+Mahuika's pet while stealing fire from her.
+
+He needed to defeat her pet 
+so he could safely get away.
+
+You, the Maori man, will need to defeat 
+this demon
+
+Your keybinds: 
+W to jump
+A to move left
+D to move right
+Left click or spacebar to shoot
+The bullet travels to the mouse position
+Esc to go back to the menu
+R to retry the game
+
+Avoid the demon's minions and fireballs 
+Defeat the demon to win the game
+If you lose all of your health you die
+Don't fall off
+
+
+
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="back" type="Button" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_u12ke")
+theme_override_font_sizes/font_size = 32
+text = "BACK
+"
+
+[node name="play" type="Button" parent="margin_container/hbox_container/vbox_container"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_u12ke")
+theme_override_font_sizes/font_size = 32
+text = "PLAY
+"
+
+[connection signal="pressed" from="margin_container/hbox_container/vbox_container/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="margin_container/hbox_container/vbox_container/play" to="." method="_on_play_pressed"]

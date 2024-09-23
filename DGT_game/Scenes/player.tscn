@@ -42,7 +42,4 @@ position = Vector2(-1, -9)
 position = Vector2(-1.5, -9.5)
 shape = SubResource("RectangleShape2D_jwo8i")
 
-[node name="game_start" type="Timer" parent="."]
-wait_time = 3.0
-
 [connection signal="timeout" from="bullet_delay" to="." method="_on_timer_timeout"]
